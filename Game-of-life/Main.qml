@@ -14,6 +14,13 @@ Window {
     Item {
         id: rootItem
 
+        Keys.onPressed: (event) => {
+            if (event.key === Qt.Key_Space) {
+                console.log("space pressed")
+                Driver.togglePlayback()
+            }
+        }
+
         anchors.fill: parent
 
         TableView {
@@ -35,13 +42,14 @@ Window {
             delegate: Item {
                 id: entity
 
-                property int sideLength: 5
+                property int sideLength: 30
 
                 implicitWidth: sideLength
                 implicitHeight: sideLength
 
                 Rectangle {
                     anchors.fill: parent
+                    anchors.margins: 1
                     color: model.isAlive? "yellow" : "grey"
                 }
                 MouseArea {
@@ -51,6 +59,10 @@ Window {
                     }
                 }
             }
+        }
+
+        Component.onCompleted: {
+            forceActiveFocus()
         }
     }
 }

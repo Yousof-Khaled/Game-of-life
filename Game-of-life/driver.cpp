@@ -9,15 +9,29 @@ Driver::Driver(QObject *parent)
 
 	m_model = new gameModel(m_rows, m_columns);
 
-	// for (int i = 0; i < m_rows ; ++i) {
-	// 	for (int j = 0 ; j < m_columns ; ++j) {
-	// 		// auto index = createIndex(i, j);
-	// 		qInfo() << i << ", " << j << " : " << m_model->index(i, j).data(gameModel::aliveRole);
-	// 	}
-	// }
+	timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, [this] {
+		static int iteration = 0;
+
+		qInfo() << "iteration #" << iteration++;
+		m_model->goToNextGeneration();
+	});
 }
 
 Driver::~Driver()
 {
 	delete m_model;
+}
+
+void Driver::togglePlayback()
+{
+	m_playing = !m_playing;
+	if (m_playing) {
+		timer->start(1000);
+		qInfo() << "started";
+	}
+	else {
+		timer->stop();
+		qInfo() << "stopped";
+	}
 }

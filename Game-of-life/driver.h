@@ -5,6 +5,7 @@
 #include <QQmlEngine>
 
 #include "gamemodel.h"
+#include <QTimer>
 
 class Driver : public QObject
 {
@@ -32,12 +33,17 @@ public:
 		return m_columns;
 	}
 
+	Q_INVOKABLE void togglePlayback();
+
 signals:
 
 private:
 
 	int m_rows, m_columns;
 	gameModel *m_model;
+
+	QTimer *timer;
+	bool m_playing = false;
 };
 
 #endif // DRIVER_H

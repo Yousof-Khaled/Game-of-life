@@ -5,6 +5,7 @@
 
 struct cell {
 	bool alive = false;
+	int row, column;
 };
 
 class gameModel : public QAbstractTableModel
@@ -30,10 +31,25 @@ public:
 
 	Qt::ItemFlags flags(const QModelIndex& index) const override;
 
+	void updateEntity(bool alive, int row, int column);
+
+	void goToNextGeneration();
+
+	bool isValid (int r, int c);
+
+	bool findNextGenStatus (cell* entity);
+
+	QVector<cell*> getNeighbors (cell* entity);
+
+	int countAliveNeighbors (cell* entity);
+
 private:
 	virtual QHash<int, QByteArray> roleNames() const override;
 
 	QVector<QVector<cell>> m_grid;
+
+	QSet<cell*> aliveEntities;
+
 	int m_numRows, m_numColumns;
 };
 
