@@ -42,7 +42,7 @@ Window {
             delegate: Item {
                 id: entity
 
-                property int sideLength: 30
+                property int sideLength: 20
 
                 implicitWidth: sideLength
                 implicitHeight: sideLength

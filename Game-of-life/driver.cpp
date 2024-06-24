@@ -4,8 +4,8 @@
 Driver::Driver(QObject *parent)
 	: QObject{parent}
 {
-	m_rows = 200;
-	m_columns = 350;
+	m_rows = 50;
+	m_columns = 90;
 
 	m_model = new gameModel(m_rows, m_columns);
 
@@ -27,7 +27,7 @@ void Driver::togglePlayback()
 {
 	m_playing = !m_playing;
 	if (m_playing) {
-		timer->start(1000);
+		timer->start(500);
 		qInfo() << "started";
 	}
 	else {
