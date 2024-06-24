@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 
 	QQmlApplicationEngine engine;
-	const QUrl url(QStringLiteral("qrc:/Game-of-life/Main.qml"));
+	const QUrl url(QStringLiteral("qrc:/Game_of_life/Main.qml"));
 	QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
 					 &app, []() { QCoreApplication::exit(-1); },
 	Qt::QueuedConnection);

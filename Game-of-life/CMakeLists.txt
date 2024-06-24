@@ -13,10 +13,12 @@ qt_add_executable(appGame-of-life
 )
 
 qt_add_qml_module(appGame-of-life
-    URI Game-of-life
+    URI Game_of_life
     VERSION 1.0
     QML_FILES
         Main.qml
+	SOURCES driver.h driver.cpp
+	SOURCES gamemodel.h gamemodel.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
