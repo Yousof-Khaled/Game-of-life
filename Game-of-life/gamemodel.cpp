@@ -7,20 +7,6 @@ gameModel::gameModel(int rows, int columns, QObject *parent)
 	m_numColumns = columns;
 
 	m_grid = QVector<QVector<cell>> (m_numRows, QVector<cell>(m_numColumns));
-
-	for (int i = 0 ; i < m_numRows ; ++i) {
-		for (int j = 0 ; j < m_numColumns ; ++j) {
-			if (i & 1) {
-				m_grid[i][j].alive = bool(j & 1);
-			}
-			else {
-				m_grid[i][j].alive = !bool(j & 1);
-			}
-		}
-	}
-
-	// qInfo() << QString::asprintf("creating model: (%d, %d)\n", m_numRows, m_numColumns);
-	// qInfo() << QString::asprintf("Double check: (%d, %d)\n", m_grid.count(), m_grid[49].count());
 }
 
 int gameModel::rowCount(const QModelIndex &parent) const

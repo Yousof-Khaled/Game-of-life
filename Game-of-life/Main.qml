@@ -35,7 +35,6 @@ Window {
             delegate: Item {
                 id: entity
 
-                required property bool isAlive
                 property int sideLength: 5
 
                 implicitWidth: sideLength
@@ -43,12 +42,12 @@ Window {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: parent.isAlive? "yellow" : "grey"
+                    color: model.isAlive? "yellow" : "grey"
                 }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        entity.isAlive ^= 1
+                        model.isAlive ^= 1
                     }
                 }
             }
