@@ -4,8 +4,8 @@
 Driver::Driver(QObject *parent)
 	: QObject{parent}
 {
-	m_rows = 50;
-	m_columns = 90;
+	m_rows = 100;
+	m_columns = 150;
 
 	m_model = new gameModel(m_rows, m_columns);
 
