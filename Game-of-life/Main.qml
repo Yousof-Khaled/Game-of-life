@@ -49,25 +49,39 @@ Window {
 
             property int sideLength: Driver.sideLength
 
-            delegate: Item {
+            columnWidthProvider: function(column) {
+                return sideLength
+            }
+
+            rowHeightProvider: function(row) {
+                return sideLength
+            }
+
+            delegate: Rectangle {
                 id: entityBox
 
-                implicitWidth: Driver.sideLength
-                implicitHeight: Driver.sideLength
+                implicitWidth: 10
+                implicitHeight: 10
 
-                width: Driver.sideLength
-                height: Driver.sideLength
+                border.width: 1
+                color: model.isAlive? "yellow" : "grey"
 
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.margins: 1
-                    color: model.isAlive? "yellow" : "grey"
-                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         model.isAlive ^= 1
                     }
+                }
+            }
+
+            Connections {
+                target: Driver
+
+                function onSideLengthChanged(newLen) {
+                    console.log("side length changed")
+
+                    grid.sideLength = newLen
+                    grid.forceLayout()
                 }
             }
         }
@@ -150,20 +164,20 @@ Window {
             from: 10
             to: 50
             stepSize: 5
-            value: 20
+            value: Driver.sideLength
 
             anchors.verticalCenter: nextButton.verticalCenter
             anchors.left: nextButton.right
             anchors.leftMargin: 20
 
             onValueChanged: {
-                Driver.setSideLength(value)
+                Driver.setSideLength(sizeSlider.value)
             }
         }
 
         Component.onCompleted: {
             forceActiveFocus()
-            Driver.setSideLength(value)
+            Driver.setSideLength(sizeSlider.value)
         }
     }
 }
