@@ -21,13 +21,15 @@ Driver::Driver(QObject *parent)
 Driver::~Driver()
 {
 	delete m_model;
+	delete timer;
 }
 
 void Driver::setSideLength(int newLength)
 {
 	if (m_sideLength != newLength) {
 		m_sideLength = newLength;
-		emit sideLengthChanged();
+		qInfo() << "side length changed to : " << newLength;
+		emit sideLengthChanged(newLength);
 	}
 }
 

@@ -46,7 +46,7 @@ public:
 
 signals:
 
-	void sideLengthChanged();
+	void sideLengthChanged(int newLength);
 
 private:
 
@@ -55,7 +55,7 @@ private:
 
 	QTimer *timer;
 	bool m_playing = false;
-	int m_sideLength = 5;
+	int m_sideLength = 10;
 };
 
 #endif // DRIVER_H
