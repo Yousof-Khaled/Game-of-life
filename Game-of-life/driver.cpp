@@ -28,7 +28,6 @@ void Driver::setSideLength(int newLength)
 {
 	if (m_sideLength != newLength) {
 		m_sideLength = newLength;
-		qInfo() << "side length changed to : " << newLength;
 		emit sideLengthChanged(newLength);
 	}
 }

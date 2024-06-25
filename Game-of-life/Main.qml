@@ -78,8 +78,6 @@ Window {
                 target: Driver
 
                 function onSideLengthChanged(newLen) {
-                    console.log("side length changed")
-
                     grid.sideLength = newLen
                     grid.forceLayout()
                 }
@@ -163,7 +161,7 @@ Window {
 
             from: 10
             to: 50
-            stepSize: 5
+            stepSize: 1
             value: Driver.sideLength
 
             anchors.verticalCenter: nextButton.verticalCenter
