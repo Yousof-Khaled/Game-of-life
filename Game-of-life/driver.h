@@ -16,6 +16,7 @@ class Driver : public QObject
 	Q_PROPERTY(gameModel* model READ model CONSTANT FINAL);
 	Q_PROPERTY(int numRows READ numRows CONSTANT FINAL);
 	Q_PROPERTY(int numColumns READ numColumns CONSTANT FINAL);
+	Q_PROPERTY(int sideLength READ sideLength WRITE setSideLength NOTIFY sideLengthChanged FINAL)
 
 public:
 	explicit Driver(QObject *parent = nullptr);
@@ -33,9 +34,19 @@ public:
 		return m_columns;
 	}
 
+	int sideLength () {
+		return m_sideLength;
+	}
+
+	Q_INVOKABLE void setSideLength (int newLength);
+
 	Q_INVOKABLE void togglePlayback();
 
+	Q_INVOKABLE void goToNextGen();
+
 signals:
+
+	void sideLengthChanged();
 
 private:
 
@@ -44,6 +55,7 @@ private:
 
 	QTimer *timer;
 	bool m_playing = false;
+	int m_sideLength = 5;
 };
 
 #endif // DRIVER_H

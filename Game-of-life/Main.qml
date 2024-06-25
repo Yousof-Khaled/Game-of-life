@@ -14,10 +14,18 @@ Window {
     Item {
         id: rootItem
 
+        property bool started: false
+
+        function togglePlayback() {
+            started ^= 1
+            Driver.togglePlayback()
+        }
+
+
         Keys.onPressed: (event) => {
             if (event.key === Qt.Key_Space) {
                 console.log("space pressed")
-                Driver.togglePlayback()
+                togglePlayback()
             }
         }
 
@@ -39,13 +47,16 @@ Window {
 
             model: Driver.model
 
+            property int sideLength: Driver.sideLength
+
             delegate: Item {
-                id: entity
+                id: entityBox
 
-                property int sideLength: 20
+                implicitWidth: Driver.sideLength
+                implicitHeight: Driver.sideLength
 
-                implicitWidth: sideLength
-                implicitHeight: sideLength
+                width: Driver.sideLength
+                height: Driver.sideLength
 
                 Rectangle {
                     anchors.fill: parent
@@ -61,8 +72,98 @@ Window {
             }
         }
 
+        component BlueButton :Rectangle {
+
+            property alias text: label.text
+
+            signal buttonClicked
+
+            width: 150
+            height: 50
+            radius: width / 3
+            border.width: 3
+            border.color: "black"
+
+            color: "darkblue"
+
+            Label {
+                id: label
+                anchors.centerIn: parent
+                font.pixelSize: 20
+                color: "white"
+            }
+
+            MouseArea {
+
+                anchors.fill: parent
+                onPressed: {
+                    parent.color = "blue"
+                    parent.border.color = "darkblue"
+                    label.color = "lightgrey"
+                }
+                onReleased: {
+                    parent.color = "darkblue"
+                    parent.border.color = "black"
+                    label.color = "white"
+                }
+
+                onClicked: {
+                    buttonClicked()
+                }
+            }
+        }
+
+        BlueButton {
+            id: startAndStopButton
+
+            text: rootItem.started? "Stop" : "Start"
+
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 20
+
+            onButtonClicked: {
+                console.log("mouse: toggle start")
+                rootItem.togglePlayback()
+            }
+        }
+
+        BlueButton {
+            id: nextButton
+
+            text: "Next"
+
+            anchors.bottom: parent.bottom
+            anchors.left: startAndStopButton.right
+            anchors.bottomMargin: 20
+            anchors.leftMargin: 20
+
+            onButtonClicked: {
+                console.log("next is pressed")
+                Driver.goToNextGen();
+            }
+        }
+
+        Slider {
+            id: sizeSlider
+
+            from: 10
+            to: 50
+            stepSize: 5
+            value: 20
+
+            anchors.verticalCenter: nextButton.verticalCenter
+            anchors.left: nextButton.right
+            anchors.leftMargin: 20
+
+            onValueChanged: {
+                Driver.setSideLength(value)
+            }
+        }
+
         Component.onCompleted: {
             forceActiveFocus()
+            Driver.setSideLength(value)
         }
     }
 }

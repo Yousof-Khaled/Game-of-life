@@ -23,6 +23,14 @@ Driver::~Driver()
 	delete m_model;
 }
 
+void Driver::setSideLength(int newLength)
+{
+	if (m_sideLength != newLength) {
+		m_sideLength = newLength;
+		emit sideLengthChanged();
+	}
+}
+
 void Driver::togglePlayback()
 {
 	m_playing = !m_playing;
@@ -34,4 +42,9 @@ void Driver::togglePlayback()
 		timer->stop();
 		qInfo() << "stopped";
 	}
+}
+
+void Driver::goToNextGen()
+{
+	m_model->goToNextGeneration();
 }

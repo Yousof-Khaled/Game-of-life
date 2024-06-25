@@ -102,8 +102,6 @@ void gameModel::goToNextGeneration()
 		}
 		processed.insert(entity);
 
-		qInfo() << "entity : " << entity->row << ", " << entity->column;
-
 		auto neighbors = getNeighbors(entity);
 		foreach (cell* cuzz, neighbors) {
 			if (processed.contains(cuzz)) continue;
@@ -112,7 +110,6 @@ void gameModel::goToNextGeneration()
 
 			bool isCuzzAlive = findNextGenStatus(cuzz);
 			if (isCuzzAlive) {
-				qInfo() << cuzz->row << ", " << cuzz->column;
 				nextGenEntities.insert(cuzz);
 			}
 		}
